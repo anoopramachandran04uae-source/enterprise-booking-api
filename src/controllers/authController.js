@@ -15,12 +15,12 @@ const register = async (req, res, next) => {
     const user = await User.create({
       name,
       email,
-      password
+      password,
     });
 
     const token = generateToken({
       id: user._id,
-      role: user.role
+      role: user.role,
     });
 
     res.status(201).json({
@@ -32,11 +32,12 @@ const register = async (req, res, next) => {
           id: user._id,
           name: user.name,
           email: user.email,
-          role: user.role
-        }
-      }
+          role: user.role,
+        },
+      },
     });
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };
@@ -59,7 +60,7 @@ const login = async (req, res, next) => {
 
     const token = generateToken({
       id: user._id,
-      role: user.role
+      role: user.role,
     });
 
     res.status(200).json({
@@ -71,9 +72,9 @@ const login = async (req, res, next) => {
           id: user._id,
           name: user.name,
           email: user.email,
-          role: user.role
-        }
-      }
+          role: user.role,
+        },
+      },
     });
   } catch (error) {
     next(error);
@@ -84,13 +85,13 @@ const profile = async (req, res) => {
   res.status(200).json({
     status: "success",
     data: {
-      user: req.user
-    }
+      user: req.user,
+    },
   });
 };
 
 module.exports = {
   register,
   login,
-  profile
+  profile,
 };

@@ -1,6 +1,6 @@
 const env = require("../config/env");
 
-const errorMiddleware = (err, req, res, next) => {
+const errorMiddleware = (err, req, res) => {
   let statusCode = err.statusCode || 500;
   let message = err.message || "Internal server error";
 
@@ -25,8 +25,8 @@ const errorMiddleware = (err, req, res, next) => {
     status: `${statusCode}`.startsWith("4") ? "fail" : "error",
     message,
     ...(env.nodeEnv === "development" && {
-      stack: err.stack
-    })
+      stack: err.stack,
+    }),
   });
 };
 
