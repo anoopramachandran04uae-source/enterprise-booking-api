@@ -18,7 +18,7 @@ const registerValidation = Joi.object({
     .pattern(new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$"))
     .required()
     .messages({
-      "string.empty": "Password is required.",
+      "string.empty": "Password is required",
       "string.min": "Password must be at least 8 characters",
       "string.max": "Password must not exceed 50 characters",
       "string.pattern.base":
