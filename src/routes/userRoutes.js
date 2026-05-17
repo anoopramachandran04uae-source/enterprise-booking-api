@@ -7,6 +7,6 @@ const { authLimiter } = require("../middlewares/rateLimitMiddleware");
 
 const router = express.Router();
 
-router.get("/list", authLimiter, protect, allowRoles("user"), list);
+router.get("/list", authLimiter, protect, allowRoles("admin"), list);
 
 module.exports = router;
