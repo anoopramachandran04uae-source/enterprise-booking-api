@@ -1,10 +1,19 @@
 const jwt = require("jsonwebtoken");
 const env = require("../config/env");
 
-const generateToken = (payload) => {
-  return jwt.sign(payload, env.jwtSecret, {
-    expiresIn: env.jwtExpiresIn
+const generateAccessToken = (payload) => {
+  return jwt.sign(payload, env.jwtAccessSecret, {
+    expiresIn: env.jwtAccessExpiresIn || "15m",
   });
 };
 
-module.exports = generateToken;
+const generateRefreshToken = (payload) => {
+  return jwt.sign(payload, env.jwtRefreshSecret, {
+    expiresIn: env.jwtRefreshExpiresIn || "7d",
+  });
+};
+
+module.exports = {
+  generateAccessToken,
+  generateRefreshToken,
+};

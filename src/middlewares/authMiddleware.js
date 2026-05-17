@@ -13,7 +13,7 @@ const protect = async (req, res, next) => {
 
     const token = authHeader.split(" ")[1];
 
-    const decoded = jwt.verify(token, env.jwtSecret);
+    const decoded = jwt.verify(token, env.jwtAccessSecret);
 
     const user = await User.findById(decoded.id);
 
@@ -24,6 +24,7 @@ const protect = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
+    console.error(error);
     return next(new AppError("Invalid or expired token", 401));
   }
 };
@@ -33,6 +34,8 @@ const allowRoles = (...roles) => {
     if (!roles.includes(req.user.role)) {
       return next(new AppError("Access denied", 403));
     }
+    console.log("Role");
+    console.log(req.user.role);
 
     next();
   };
@@ -40,5 +43,5 @@ const allowRoles = (...roles) => {
 
 module.exports = {
   protect,
-  allowRoles
+  allowRoles,
 };

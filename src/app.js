@@ -8,6 +8,7 @@ const cookieParser = require("cookie-parser");
 
 const env = require("./config/env");
 const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/userRoutes");
 const errorMiddleware = require("./middlewares/errorMiddleware");
 const AppError = require("./utils/AppError");
 const { apiLimiter } = require("./middlewares/rateLimitMiddleware");
@@ -44,6 +45,7 @@ app.get("/health", (req, res) => {
 });
 
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/users", userRoutes);
 
 app.use((req, res, next) => {
   next(new AppError(`Route ${req.originalUrl} not found`, 404));
