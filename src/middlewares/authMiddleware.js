@@ -34,8 +34,6 @@ const allowRoles = (...roles) => {
     if (!roles.includes(req.user.role)) {
       return next(new AppError("Access denied", 403));
     }
-    console.log("Role");
-    console.log(req.user.role);
 
     next();
   };
